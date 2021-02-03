@@ -104,7 +104,7 @@ traffic.
 
 Central Services can be deployed to a single virtual machine when the Azure single-instance VM availability SLA meets your requirement. However, the virtual machine becomes a potential single point of failure (SPOF) for the SAP environment. For a [highly available Central Services deployment](/azure/virtual-machines/workloads/sap/high-availability-guide-suse-netapp-files), the Azure NetApp Files service and a Central Services cluster are used.
 
-Other option is to use [Azure Shared Disks](/azure/virtual-machines/disks-shared) to achieve high availability. On SUSE Enterprise Linux 15 SP 1 and above, SUSE Enterprise Linux For SAP, and Red Hat Enterprise Linux, Pacemaker cluster can be set up using [Azure Shared Disk](/azure/virtual-machines/disks-shared#linux) to achieve high availability.
+Other option is to use [Azure Shared Disks](https://docs.microsoft.com/azure/virtual-machines/disks-shared) to achieve high availability. On SUSE Enterprise Linux 15 SP 1 and above, SUSE Enterprise Linux For SAP, and Red Hat Enterprise Linux, Pacemaker cluster can be set up using [Azure Shared Disk](https://docs.microsoft.com/azure/virtual-machines/disks-shared#linux) to achieve high availability.
 
 Alternately, an NFS file share can be used for the [Linux cluster shared
 storage](/azure/virtual-machines/workloads/sap/high-availability-guide-suse-netapp-files).
@@ -214,11 +214,16 @@ recommend using Premium [Azure Managed
 Disks](/azure/storage/storage-managed-disks-overview)
 in all cases. Note that a recent update to [SAP note 2015553](https://launchpad.support.sap.com/#/notes/2015553) excludes the use of Standard HDD Storage and Standard SSD Storage for a few specific use cases.
 
+For High-Availability scenarios [Azure Shared Disks](https://docs.microsoft.com/azure/virtual-machines/disks-shared) are available on Premium SSD and Ultra SSD [Azure Managed
+Disks](/azure/storage/storage-managed-disks-overview). Azure Shared Disks can be used with Windows Server, SUSE Enterprise Linux 15 SP 1 and above, SUSE Enterprise Linux For SAP, and Red Hat Enterprise Linux.
+
 Because application servers do not host any business data, you can also use the
 smaller P4 and P6 Premium disks to help minimize cost and benefit from the
 [single instance VM
 SLA](https://azure.microsoft.com/support/legal/sla/virtual-machines/v1_6/)
 in case of a central SAP stack installation.
+
+For NFS Share scenarios, [Azure NetApp Files](https://docs.microsoft.com/azure/virtual-machines/workloads/sap/hana-vm-operations-netapp) provides native NFS shares that can be used for /hana/shared, /hana/data, and /hana/log volumes. Using ANF-based NFS shares for the /hana/data and /hana/log volumes requires the usage of the v4.1 NFS protocol. For the /hana/shared volume the NFS protocol v3 is supported. 
 
 Azure Storage is also used by [Cloud
 Witness](/windows-server/failover-clustering/deploy-cloud-witness)
@@ -360,6 +365,8 @@ and [Red
 Hat](/azure/virtual-machines/workloads/sap/high-availability-guide-rhel-pacemaker)
 and provides significantly faster service failover compared to the previous
 version of the agent.
+
+Other option is to use [Azure Shared Disks](https://docs.microsoft.com/azure/virtual-machines/disks-shared) to achieve high availability. On SUSE Enterprise Linux 15 SP 1 and above, SUSE Enterprise Linux For SAP, and Red Hat Enterprise Linux, Pacemaker cluster can be set up using [Azure Shared Disk](https://docs.microsoft.com/azure/virtual-machines/disks-shared#linux) to achieve high availability.
 
 With the introduction of the Standard Azure Load Balancer SKU, you can now
 simply enable the [high availability
